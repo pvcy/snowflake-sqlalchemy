@@ -17,7 +17,6 @@ from sqlalchemy.sql import compiler, expression
 from sqlalchemy.sql.base import CompileState
 from sqlalchemy.sql.elements import quoted_name
 from sqlalchemy.sql.selectable import Lateral, SelectState
-from sqlalchemy.util.compat import string_types
 
 from .custom_commands import AWSBucket, AzureContainer, ExternalStage
 from .util import (
@@ -632,7 +631,7 @@ class SnowflakeCompiler(compiler.SQLCompiler):
             encryption_list.sort(key=operator.itemgetter(0))
         encryption = "ENCRYPTION=({})".format(
             " ".join(
-                ("{}='{}'" if isinstance(v, string_types) else "{}={}").format(n, v)
+                ("{}='{}'" if isinstance(v, str) else "{}={}").format(n, v)
                 for n, v in encryption_list
             )
         )
@@ -657,7 +656,7 @@ class SnowflakeCompiler(compiler.SQLCompiler):
             encryption_list.sort(key=operator.itemgetter(0))
         encryption = "ENCRYPTION=({})".format(
             " ".join(
-                f"{n}='{v}'" if isinstance(v, string_types) else f"{n}={v}"
+                f"{n}='{v}'" if isinstance(v, str) else f"{n}={v}"
                 for n, v in encryption_list
             )
         )
