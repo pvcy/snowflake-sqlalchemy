@@ -9,6 +9,11 @@ Source code is also available at:
 
 # Release Notes
 
+- v1.4.8(TBD)
+
+  - Added option to create a temporary stage command.
+  - Fixed a compatibility issue of regex expression with SQLAlchemy 1.4.49.
+
 - v1.4.7(Mar 22, 2023)
 
   - Re-applied the application name of driver connection `SnowflakeConnection` to `SnowflakeSQLAlchemy`.
