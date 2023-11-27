@@ -833,7 +833,7 @@ class SnowflakeDialect(default.DefaultDialect):
     @reflection.cache
     def get_sequence_names(self, connection, schema=None, **kw):
         sql_command = "SHOW SEQUENCES {}".format(
-            f"IN SCHEMA {self.normalize_name(schema)}" if schema else ""
+            f" IN SCHEMA \"{self.denormalize_name(schema)}\"" if schema else "",
         )
         try:
             cursor = connection.execute(text(sql_command))
@@ -851,7 +851,7 @@ class SnowflakeDialect(default.DefaultDialect):
             "SHOW /* sqlalchemy:_get_table_comment */ "
             "TABLES LIKE '{}'{}".format(
                 table_name,
-                f" IN SCHEMA {self.normalize_name(schema)}" if schema else "",
+                f" IN SCHEMA \"{self.denormalize_name(schema)}\"" if schema else "",
             )
         )
         cursor = connection.execute(text(sql_command))
@@ -865,7 +865,7 @@ class SnowflakeDialect(default.DefaultDialect):
             "SHOW /* sqlalchemy:_get_view_comment */ "
             "VIEWS LIKE '{}'{}".format(
                 table_name,
-                f" IN SCHEMA {self.normalize_name(schema)}" if schema else "",
+                f" IN SCHEMA \"{self.denormalize_name(schema)}\"" if schema else "",
             )
         )
         cursor = connection.execute(text(sql_command))
